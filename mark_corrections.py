@@ -10,6 +10,7 @@ NO_CORRECTION = 0
 MAJOR_CORRECTION = 1
 MINOR_CORRECTION = 2
 BREAKING_NEWS_UPDATE = 3
+RESPONSE_UPDATE = 4
 
 def get_correction_info(text):
     # TEXT_TO_SEARCH_FOR => (MAJOR/MINOR, Case Sensitive)
@@ -29,15 +30,15 @@ def get_correction_info(text):
         'This article has been corrected since it was originally published': (MAJOR_CORRECTION, False),
         'Please Note,': (MINOR_CORRECTION, True),
         'earlier alert': (BREAKING_NEWS_UPDATE, False),
-        "editors' note appended": (MAJOR_CORRECTION, False),
-        "editors note appended": (MAJOR_CORRECTION, False),
+        "editors' note appended": (MINOR_CORRECTION, False),
+        "editors note appended": (MINOR_CORRECTION, False),
         'Correction Appended': (MAJOR_CORRECTION, True),
         "Correction notice:": (MAJOR_CORRECTION, False),
         "Update:": (BREAKING_NEWS_UPDATE, False),
         'UPDATE': (BREAKING_NEWS_UPDATE, True),
-        "Editor's note:": (MINOR_CORRECTION, False),
-        "Editors note:": (MINOR_CORRECTION, False),
-        "Editors' note:": (MINOR_CORRECTION, False),
+        "Editor's note:": (RESPONSE_UPDATE, False),
+        "Editors note:": (RESPONSE_UPDATE, False),
+        "Editors' note:": (RESPONSE_UPDATE, False),
         "Corrections & Amplifications:": (MAJOR_CORRECTION, False),
         'This article was amended': (MAJOR_CORRECTION, False),
         "Editor's note: This story includes a correction.": (MAJOR_CORRECTION,False),
@@ -68,12 +69,12 @@ def get_correction_info(text):
         'WITHDRAWAL': (MAJOR_CORRECTION, True),
         'may have left the incorrect impression': (MINOR_CORRECTION, True),
         'clarifications:': (MINOR_CORRECTION, False),
-        'An earlier version of this article': (MAJOR_CORRECTION, False),
-        'A previous version of this story': (MAJOR_CORRECTION, False),
-        'A previous version of this article': (MAJOR_CORRECTION, False),
-        'An earlier version of this story': (MAJOR_CORRECTION, False),
-        'An update to this story reflects': (MAJOR_CORRECTION, False),
-        'An update to this article reflects': (MAJOR_CORRECTION, False),
+        'An earlier version of this article': (MINOR_CORRECTION, False),
+        'A previous version of this story': (MINOR_CORRECTION, False),
+        'A previous version of this article': (MINOR_CORRECTION, False),
+        'An earlier version of this story': (MINOR_CORRECTION, False),
+        'An update to this story reflects': (RESPONSE_UPDATE, False),
+        'An update to this article reflects': (RESPONSE_UPDATE, False),
         'This version has been corrected': (MAJOR_CORRECTION, False),
         'The original version of this article': (MINOR_CORRECTION, False),
         'The original version of this story': (MINOR_CORRECTION, False),
@@ -87,11 +88,13 @@ def get_correction_info(text):
         'The article has been changed': (MAJOR_CORRECTION, False),
         'The story has been changed': (MAJOR_CORRECTION, False),
         'This story has been changed': (MAJOR_CORRECTION, False),
-        'This story has been updated': (MAJOR_CORRECTION, False),
+        'This story has been updated': (RESPONSE_UPDATE, False),
+        'This story has been updated throughout.': (BREAKING_NEWS_UPDATE, True),
         'This story was corrected': (MAJOR_CORRECTION, False),
         'The article has been changed': (MAJOR_CORRECTION, False),
         'This article has been changed': (MAJOR_CORRECTION, False),
-        'This article has been updated': (MAJOR_CORRECTION, False),
+        'This article has been updated': (RESPONSE_UPDATE, False),
+        'This article has been updated throughout.': (BREAKING_NEWS_UPDATE, True),
         'This article was corrected': (MAJOR_CORRECTION, False),
         'Note: This article was published inadvertently and has been removed': (MAJOR_CORRECTION, True),
         'Note: This story was published inadvertently and has been removed': (MAJOR_CORRECTION, True),
@@ -136,6 +139,7 @@ results = {
     MINOR_CORRECTION: 0,
     MAJOR_CORRECTION: 0,
     BREAKING_NEWS_UPDATE: 0,
+    RESPONSE_UPDATE: 0
 }
 
 import tqdm
@@ -165,4 +169,4 @@ print("Major Corrections: %s" % results[MAJOR_CORRECTION])
 print("Minor Corrections: %s" % results[MINOR_CORRECTION])
 print("No Corrections:    %s" % results[NO_CORRECTION])
 print("Breaking News Update: %s" % results[BREAKING_NEWS_UPDATE])
-
+print("RESPONSE_UPDATE: %s" % results[RESPONSE_UPDATE])
